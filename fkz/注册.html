@@ -1,0 +1,181 @@
+<html>
+
+<head>
+    <script>
+        var today = new Date()
+        time = ""
+        time += today.getYear() + 1900 + "年"
+        time += today.getMonth() + 1 + "月"
+        time += today.getDay() + 13 + "日"
+    </script>
+    <table border="1" bgcolor="aqua" class="head">
+        <tr>
+            <td><a href="主界面.html">
+                    <h1>首页</h1>
+                </a></td>
+            <td><a href="个人简介.html">个人简介</a></td>
+            <td><a href="生活点滴.html">生活点滴</a></td>
+            <td><a href="登陆.html">登陆</a></td>
+            <td><a href="注册.html">注册</a></td>
+            <td>
+                <script>document.write(time)</script>
+            </td>
+        </tr>
+    </table>
+
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: black
+        }
+
+        table.head {
+            width: 100%;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .code {
+            font-family: Arial;
+            font-style: italic;
+            color: blue;
+            font-size: 30px;
+            border: 0;
+            padding: 2px 3px;
+            letter-spacing: 3px;
+            font-weight: bolder;
+            float: left;
+            cursor: pointer;
+            width: 150px;
+            height: 50px;
+            line-height: 60px;
+            text-align: center;
+            /* vertical-align: middle; */
+            background-color: #D8B7E3;
+        }
+
+        span {
+            text-decoration: none;
+            font-size: 12px;
+            color: #b91903;
+            padding-left: 10px;
+        }
+
+        span:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        /* body {
+            text-align: center;
+        } */
+    </style>
+</head>
+
+<body>
+    <form action="action_page.php" target="_blank" method="post">
+        <fieldset>
+            <legend>请完成注册，带*必填</legend>
+            账号:*<br>
+            <input type="text" name="账号" placeholder="20位以内的数字字母组成" maxlength="20" autofocus required="required"><br>
+            密码:*<br>
+            <input type="text" name="密码" placeholder="须包含大小写字母和数字" required="required"><br>
+            确认密码:*<br>
+            <input type="text" name="确认密码" placeholder="请再次输入密码" required="required"><br>
+            上传图片作为头像:*<br>
+            <input type="file" name="头像"><br>
+            性别:*<br>
+            <input type="radio" name="性别" id="simi" checked><label for="simi">私密</label><br>
+            <input type="radio" name="性别" required="required" id="nan"><label for="nan">男</label><br>
+            <input type="radio" name="性别" id="nv"><label for="nv">女</label><br>
+            <!--radio单选框必须把name设置成一样，不然就可以多选惹。-->
+            生日:
+            <input type="date" name="生日" value="bday" min="1900-01-01" max="today"><br>
+            日常睡觉时间:
+            <input type="time" name="睡觉时间"><br>
+            电话:
+            <input type="tel" name="电话"><br>
+            短信验证码:
+            <input type="text"><br>
+            <input type="button" value="获取短信验证码"><br>
+            最喜欢的颜色:
+            <input type="color" name="最爱的颜色" value="color"><br>
+            对网站的满意程度:
+            <input type="range" name="score" value="10" min="1" max="10">1~10<br>
+            <select name="地区">
+                <option value="null" selected="selected" required="required">所在地区* </option>
+                <option value="中国">中国</option>
+                <option value="外国">外国</option>
+            </select><br><br>
+            <textarea name="textarea" placeholder="个人简介" cols="30" rows="10"></textarea>
+
+
+            <script>
+                window.onload = function () {
+                    createCode(4);
+                }
+                function createCode(length) {
+                    var code = "";
+                    var codeLength = parseInt(length);
+                    var checkCode = document.getElementById("checkCode");
+                    var codeChars = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+                        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+                        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
+                    for (var i = 0; i < codeLength; i++) {
+                        var charNum = Math.floor(Math.random() * 62);
+                        code += codeChars[charNum];
+                    }
+                    if (checkCode) {
+                        checkCode.className = "code";
+                        checkCode.innerHTML = code;
+                    }
+                }
+
+                function validateCode() {
+                    var checkCode = document.getElementById("checkCode").innerHTML;
+                    var inputCode = document.getElementById("inputCode").value;
+                    console.log(checkCode);
+                    console.log(inputCode);
+                    if (inputCode.length <= 0) {
+                        alert("请输入验证码！");
+                    }
+                    else if (inputCode.toUpperCase() != checkCode.toUpperCase()) {
+                        alert("验证码输入有误");
+                        createCode(4);
+                    }
+                    else {
+                        alert("验证码正确！");
+                    }
+                }    
+            </script>
+            <div>
+                <table border="0" cellspacing="5" cellpadding="5">
+                    <tr>
+                        <td>
+                            <div id="checkCode" class="code" onclick="createCode(4)"></div>
+                        </td>
+                        <td> <span onclick="createCode(4)">看不清换一张</span></td>
+                    </tr>
+                    <tr>
+                        <td>验证码：*</td>
+                        <td><input type="text" id="inputCode" style="float:left;" /></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="button" onclick="validateCode()" value="确定" required="required" /></td>
+                    </tr>
+                </table>
+            </div>
+
+            <button onclick="alert('人机检验通过')">点击进行人机检验</button>
+            <input type="submit" name="完成注册" value="完成注册">
+            <input type="reset" value="重新填写">
+        </fieldset>
+    </form>
+</body>
